@@ -35,7 +35,7 @@ class User extends Authenticatable
         'date' => 'date',
     ];
 
-    protected $atributtes = [
+    protected $attributes = [
         'status' => UserStatus::Pending,
     ];
 
