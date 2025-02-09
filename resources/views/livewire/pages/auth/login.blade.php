@@ -35,10 +35,10 @@ $login = function () {
                 <span class="text-5xl font-bold mb-14">Login</span>
             </div>
             <div>
-                <x-input-label class="text-[#7c838a]" for="email" :value="__('Email')" />
-                <x-text-input wire:model="form.email" id="email" class="block w-full mt-1 bg-transparent border-[#656ed3] text-[#afb3ff]"
-                                type="email"
-                                name="email"
+                <x-input-label class="text-[#7c838a]" for="username" value="Username" />
+                <x-text-input wire:model="form.username" id="username" class="block w-full mt-1 bg-transparent border-[#656ed3] text-[#afb3ff]"
+                                type="text"
+                                name="username"
                                 required
                                 autofocus
                                 style="border-radius: 999px"
