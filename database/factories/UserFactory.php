@@ -24,13 +24,9 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->name();
-        $firstName = explode(' ', $name)[0];
-        $randomNumber = rand(0, 1) ? rand(10, 99) : '';
-
         return [
-            'name' => fake()->unique()->name(),
-            'username' => Str::lower($firstName) . $randomNumber,
+            'name' => fake()->name(),
+            'username' => fake()->unique()->userName(),
             'email' => fake()->unique()->safeEmail(),
             'status' => fake()->randomElement(UserStatus::cases()),
             'email_verified_at' => now(),

@@ -37,7 +37,6 @@ class User extends Authenticatable
 
     protected $atributtes = [
         'status' => UserStatus::Pending,
-        'date' => now(),
     ];
 
     /**
@@ -61,5 +60,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (User $user) {
+            $user->date = now();
+        });
     }
 }
