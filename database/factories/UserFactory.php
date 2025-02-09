@@ -29,7 +29,7 @@ class UserFactory extends Factory
         $randomNumber = rand(0, 1) ? rand(10, 99) : '';
 
         return [
-            'name' => fake()->name(),
+            'name' => fake()->unique()->name(),
             'username' => Str::lower($firstName) . $randomNumber,
             'email' => fake()->unique()->safeEmail(),
             'status' => fake()->randomElement(UserStatus::cases()),
