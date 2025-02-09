@@ -22,48 +22,47 @@ $login = function () {
 
 ?>
 
-<div>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<div class="relative w-screen h-screen">
+    <div class="bg-[#ced7f8] h-14 w-full absolute left-0 z-10 flex items-center pl-12">
+        <span class="text-4xl font-medium">Portal</span>
+    </div>
+    <img src="{{ asset('storage/images/fundo_login.png') }}" alt="" class="absolute top-0 left-0 object-cover w-full h-full">
+    <div class="absolute top-0 right-0 z-20 flex items-center justify-center w-1/2 h-full">
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form wire:submit="login">
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="form.email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
-        </div>
+        <form wire:submit="login">
+            <div class="flex items-center justify-center">
+                <span class="text-5xl font-bold mb-14">Login</span>
+            </div>
+            <div>
+                <x-input-label class="text-[#7c838a]" for="email" :value="__('Email')" />
+                <x-text-input wire:model="form.email" id="email" class="block w-full mt-1 bg-transparent border-[#656ed3] text-[#afb3ff]"
+                                type="email"
+                                name="email"
+                                required
+                                autofocus
+                                style="border-radius: 999px"
+                                autocomplete="username" />
+                <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+            </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <div class="mt-4">
+                <x-input-label class="text-[#7c838a]" for="password" :value="__('Password')" />
 
-            <x-text-input wire:model="form.password" id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+                <x-text-input wire:model="form.password" id="password" class="block w-full mt-1 bg-transparent border-[#656ed3] text-[#afb3ff]"
+                                type="password"
+                                name="password"
+                                style="border-radius: 999px"
+                                required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
-        </div>
+                <x-input-error :messages="$errors->get('form.password')" class="mt-2 rounded-full" />
+            </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember" class="inline-flex items-center">
-                <input wire:model="form.remember" id="remember" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}" wire:navigate>
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
+            <div class="flex justify-center mt-4 itfullems-center">
+                <x-primary-button class="block w-full py-3 mt-3 rounded-full" style="border-radius: 999px">
+                    Login
+                </x-primary-button>
+            </div>
+        </form>
+    </div>
 </div>
