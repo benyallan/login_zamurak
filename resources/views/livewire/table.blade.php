@@ -1,19 +1,38 @@
 <?php
 
-use function Livewire\Volt\{state};
+use Livewire\WithPagination;
+use Livewire\Volt\Component;
 use App\Models\User;
 
-new class
-{
-    public function __construct() {
-        state(['users' => User::all()]);
+new class extends Component {
+    use WithPagination;
+
+    public string $search = '';
+
+    public string $sortDirection = 'asc';
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
     }
-}
 
+    public function sortByName(): void
+    {
+        $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+    }
 
-
-
-?>
+    public function with(): array
+    {
+        return [
+            'users' => User::query()
+                ->when($this->search, function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orderBy('name', $this->sortDirection)
+                ->paginate(10),
+        ];
+    }
+} ?>
 
 <div class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white border shadow-md rounded-xl bg-clip-border-[#E4E4E4] p-4">
     <div class="flex items-center justify-between p-4">
@@ -27,6 +46,7 @@ new class
                     class="bg-transparent border border-gray-300 rounded-lg focus:border-[#7839CD] focus:ring-1 focus:ring-[#7839CD] transition-colors"
                     type="text"
                     name="search"
+                    wire:model.live="search"
                     placeholder="Search"
                     required
                     autofocus
@@ -58,7 +78,7 @@ new class
                     <th colspan="2" class="items-center justify-between p-4 border-b border-blue-gray-100 bg-blue-gray-50">
                         <div class="flex justify-between">
                             <p class="font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">Users</p>
-                            <button wire:click="sortByName" class="button btn-success"> <x-heroicon-c-chevron-up-down class="w-5"/> </button>
+                            <button wire:click="sortByName" > <x-heroicon-c-chevron-up-down class="w-5"/> </button>
                         </div>
                     </th>
                     <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
@@ -88,12 +108,10 @@ new class
                         </td>
                         <td class="border-b border-blue-gray-100">
                             <p class="font-sans antialiased leading-normal text-blue-gray-900">
-                                <!-- Nome do usuário: maior e em negrito -->
                                 <span class="text-base font-bold text-black">
                                     {{ $user->name }}
                                 </span>
                                 <br>
-                                <!-- Username: em cinza com o "@" -->
                                 <span class="text-sm text-gray-600">
                                     {{ '@' . $user->username }}
                                 </span>
@@ -136,5 +154,8 @@ new class
                 @endforeach
             </tbody>
         </table>
+        <div class="flex justify-center mt-4">
+            {{ $users->links() }}
+        </div>
     </div>
 </div>
