@@ -67,7 +67,7 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function (User $user) {
-            $user->date = now();
+            $user->date = $user->date ?? $user->date = now();
         });
     }
 }
