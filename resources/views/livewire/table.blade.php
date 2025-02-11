@@ -41,6 +41,11 @@ new class extends Component {
         }
     }
 
+    public function downloadCsv(): void
+    {
+        redirect()->to(route('users.export'));
+    }
+
     public function with(): array
     {
         return [
@@ -87,6 +92,7 @@ new class extends Component {
             <div>
                 <x-primary-button
                     class="py-3"
+                    wire:click="downloadCsv"
                     style="background-color: #7839CD; border-color: #7839CD; color: #F4EEFB;"
                 >
                     <x-heroicon-s-arrow-down-tray class="w-5"/>
@@ -167,7 +173,7 @@ new class extends Component {
                             </p>
                         </td>
                         <td class="p-4 space-x-2 border-b tems-center border-blue-gray-100">
-                            <a href="#" wire:click="downloadCsv" class="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                            <a href="#" class="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                 <x-css-info class="text-[#959595]"/>
                             </a>
                         </td>
