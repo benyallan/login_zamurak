@@ -11,6 +11,10 @@ new class extends Component {
 
     public string $sortDirection = 'asc';
 
+    public ?string $statusFilter = null;
+
+    protected $listeners = ['filterUpdated'];
+
     public function updatedSearch(): void
     {
         $this->resetPage();
@@ -21,6 +25,12 @@ new class extends Component {
         $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
     }
 
+    public function filterUpdated(?string $status): void
+    {
+        $this->statusFilter = $status;
+        $this->resetPage();
+    }
+
     public function with(): array
     {
         return [
@@ -28,6 +38,9 @@ new class extends Component {
                 ->when($this->search, function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%');
                 })
+                ->when($this->statusFilter, fn($query) =>
+                    $query->where('status', $this->statusFilter)
+                )
                 ->orderBy('name', $this->sortDirection)
                 ->paginate(10),
         ];
@@ -55,6 +68,7 @@ new class extends Component {
             <div>
                 <x-primary-button
                     class="py-3"
+                    wire:click="dispatch('openFilterModal')"
                     style="background-color: #F4EEFB; border-color: #7839CD; color: #7839CD;"
                 >
                     Filter
@@ -70,6 +84,8 @@ new class extends Component {
             </div>
         </div>
     </div>
+
+    <livewire:filtermodal />
 
     <div class="border shadow-md rounded-xl bg-clip-border-[#E4E4E4] mt-4">
         <table class="w-full text-left table-auto min-w-max">
