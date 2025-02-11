@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'beny',
+            'profile_photo' => asset('storage/images/perfil.png'),
             'username' => 'beny',
             'email' => 'beny@test.com',
             'password' => bcrypt('test'),
