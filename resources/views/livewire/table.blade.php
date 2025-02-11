@@ -31,6 +31,16 @@ new class extends Component {
         $this->resetPage();
     }
 
+    public function deleteUser(int $userId): void
+    {
+        $user = User::find($userId);
+
+        if ($user) {
+            $user->delete();
+            $this->dispatch('userDeleted');
+        }
+    }
+
     public function with(): array
     {
         return [
@@ -157,12 +167,12 @@ new class extends Component {
                             </p>
                         </td>
                         <td class="p-4 space-x-2 border-b tems-center border-blue-gray-100">
-                            <a href="#" class="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                            <a href="#" wire:click="downloadCsv" class="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                 <x-css-info class="text-[#959595]"/>
                             </a>
                         </td>
                         <td class="p-4 space-x-2 border-b tems-center border-blue-gray-100">
-                            <a href="#" class="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                            <a href="#" wire:click="deleteUser({{ $user->id }})" class="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                 <x-css-trash class="text-[#959595]"/>
                             </a>
                         </td>
