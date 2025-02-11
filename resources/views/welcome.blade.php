@@ -24,8 +24,8 @@
                             @endif
                         </div>
                         <div class="w-full py-10 text-center">
-                            <h1 class="text-4xl font-bold text-red-500">Laravel</h1>
-                            <p class="text-lg text-gray-600 dark:text-gray-300">Bem-vindo ao Laravel estilizado</p>
+                            <h1 class="text-4xl font-bold text-red-500">Login Zamurak</h1>
+                            <p class="text-lg text-gray-600 dark:text-gray-300">Bem-vindo ao Login Zamurak</p>
                         </div>
                     </header>
 
@@ -35,6 +35,10 @@
                             <div class="p-4 bg-gray-100 border rounded-lg dark:bg-gray-700">
                                 <h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">Versão do Laravel</h3>
                                 <p class="text-gray-600 dark:text-gray-400">{{ app()->version() }}</p>
+                            </div>
+                            <div class="p-4 bg-gray-100 border rounded-lg dark:bg-gray-700">
+                                <h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">Versão do Livewire</h3>
+                                <p class="text-gray-600 dark:text-gray-400">{{ \Composer\InstalledVersions::getVersion('livewire/livewire') }}</p>
                             </div>
                             <div class="p-4 bg-gray-100 border rounded-lg dark:bg-gray-700">
                                 <h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">Ambiente</h3>
@@ -48,7 +52,7 @@
                     </main>
 
                     <footer class="py-16 text-sm text-center text-black dark:text-white/70">
-                        <a href="http://www.bdtechsolutions.com.br"></a> BDTech Solutions by Beny Allan
+                        <a href="http://www.bdtechsolutions.com.br">BDTech Solutions</a> by Beny Allan
                     </footer>
                 </div>
             </div>
